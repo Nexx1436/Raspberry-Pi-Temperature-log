@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kiss-py</title>
+    <script src="../jquery.min.js"></script>
+
+</head>
+<body>
+
+<div>
+    <script>
+$(document).ready(function() {
+
+    $('#gomb').click(function() {
+
+        console.log($("#start").val());
+
+        $.post("/summary", {
+                date: $('#start').val()
+            }, function(datar) {
+            var d1 = [];
+            var d2 = [];
+            var d3 = [];
+            for (i = 0; i < datar.length; i++) {
+                console.log(datar[i]);
+              d1.push({ x: datar[i][0],  y: datar[i][2] });
+              d2.push({ x: datar[i][0],  y: datar[i][1] });
+              d3.push({ x: datar[i][0],  y: datar[i][3] });
+            }
+            console.log(d1)
+            console.log(d2);
+            var options = {
+                exportEnabled: true,
+                animationEnabled: true,
+                title:{
+                    text: "Hőmérséklet és páratartalom"
+                },
+                subtitles: [{
+                    text: ""
+                }],
+                axisX: {
+                    title: "Idő"
+                },
+                axisY: {
+                    title: "Hőmérséklet",
+                    titleFontColor: "#4F81BC",
+                    lineColor: "#4F81BC",
+                    labelFontColor: "#4F81BC",
+                    tickColor: "#4F81BC",
+                    includeZero: false
+                },
+                axisY2: {
+                    title: "Páratartalom",
+                    titleFontColor: "#C0504E",
+                    lineColor: "#C0504E",
+                    labelFontColor: "#C0504E",
+                    tickColor: "#C0504E",
+                    includeZero: false
+                },
+                axisY3: {
+                    title: "Idő",
+                    titleFontColor: "#CCCCCC",
+                    lineColor: "#C0504E",
+                    labelFontColor: "#C0504E",
+                    tickColor: "#C0504E",
+                    includeZero: false
+                },
+                toolTip: {
+                    shared: true
+                },
+                legend: {
+                    cursor: "pointer",
+                    itemclick: toggleDataSeries
+                },
+                data: [{
+                    type: "spline",
+                    name: "Hőmérséklet",
+                    showInLegend: true,
+                    xValueFormatString: "HH:mm:ss",
+                    yValueFormatString: "##",
+                    dataPoints: d1
+                },
+                {
+                    type: "spline",
+                    name: "Páratartalom",
+                    axisYType: "secondary",
+                    showInLegend: true,
+                    xValueFormatString: "HH:mm:ss",
+                    yValueFormatString: "##",
+                    dataPoints: d2
+                },
+                {
+                    type: "spline",
+                    name: "Idő",
+                    axisYType: "secondary",
+                    showInLegend: true,
+                    xValueFormatString: "HH:mm:ss",
+                    yValueFormatString: "##",
+                    dataPoints: d3
+                }]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+
+            function toggleDataSeries(e) {
+                if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else {
+                    e.dataSeries.visible = true;
+                }
+                e.chart.render();
+            }
+
+
+
+
+            })
+            .done(function() {
+                //alert("second success");
+            })
+            .fail(function() {
+                alert("error");
+            });
+    });
+    $('#gomb2').click(function() {
+
+        console.log($("#start").val());
+
+        $.post("/summarys", {
+                date: $('#start').val()
+            }, function(datar) {
+            var d1 = [];
+            var d2 = [];
+            var d3 = [];
+            for (i = 0; i < datar.length; i++) {
+                console.log(datar[i]);
+              d1.push({ x: datar[i][0],  y: datar[i][2] });
+              d2.push({ x: datar[i][0],  y: datar[i][1] });
+              d3.push({ x: datar[i][0],  y: datar[i][3] });
+            }
+            console.log(d1)
+            console.log(d2);
+            var options = {
+                exportEnabled: true,
+                animationEnabled: true,
+                title:{
+                    text: "Hőmérséklet és páratartalom"
+                },
+                subtitles: [{
+                    text: ""
+                }],
+                axisX: {
+                    title: "Idő"
+                },
+                axisY: {
+                    title: "Hőmérséklet",
+                    titleFontColor: "#4F81BC",
+                    lineColor: "#4F81BC",
+                    labelFontColor: "#4F81BC",
+                    tickColor: "#4F81BC",
+                    includeZero: false
+                },
+                axisY2: {
+                    title: "Páratartalom",
+                    titleFontColor: "#C0504E",
+                    lineColor: "#C0504E",
+                    labelFontColor: "#C0504E",
+                    tickColor: "#C0504E",
+                    includeZero: false
+                },
+                axisY3: {
+                    title: "Idő",
+                    titleFontColor: "#CCCCCC",
+                    lineColor: "#C0504E",
+                    labelFontColor: "#C0504E",
+                    tickColor: "#C0504E",
+                    includeZero: false
+                },
+                toolTip: {
+                    shared: true
+                },
+                legend: {
+                    cursor: "pointer",
+                    itemclick: toggleDataSeries
+                },
+                data: [{
+                    type: "spline",
+                    name: "Hőmérséklet",
+                    showInLegend: true,
+                    xValueFormatString: "HH:mm:ss",
+                    yValueFormatString: "##",
+                    dataPoints: d1
+                },
+                {
+                    type: "spline",
+                    name: "Páratartalom",
+                    axisYType: "secondary",
+                    showInLegend: true,
+                    xValueFormatString: "HH:mm:ss",
+                    yValueFormatString: "##",
+                    dataPoints: d2
+                },
+                {
+                    type: "spline",
+                    name: "Idő",
+                    axisYType: "secondary",
+                    showInLegend: true,
+                    xValueFormatString: "HH:mm:ss",
+                    yValueFormatString: "##",
+                    dataPoints: d3
+                }]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+
+            function toggleDataSeries(e) {
+                if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else {
+                    e.dataSeries.visible = true;
+                }
+                e.chart.render();
+            }
+
+
+
+
+            })
+            .done(function() {
+                //alert("second success");
+            })
+            .fail(function() {
+                alert("error");
+            });
+});
+
+
+    </script>
+
+<label for="start">Kezdés dátuma:</label>
+    <input type="date" id="start" name="trip-start"
+       value="2020-01-01"
+       >
+</div>
+<button id="gomb">Adatlekérés</button>
+<button id="gomb2">Minden adat Lekérése</button>
+
+
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+
+<div id="result">
+
+</div>
+
+</body>
+</html>
+
+
+
