@@ -335,6 +335,7 @@ def summarys():
 # ellenőrizzük, hogy fő szálban fut e a program - python sajátosság
 if __name__ == '__main__':
     dht_sensor.start()
+# a háttérben fut 10mp időközönként
 
     # flask alkalmazás indítása  - ez a webszerver.
 
